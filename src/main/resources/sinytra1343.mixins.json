@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "cc.unilock.sinytra1343.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "LivingEntityMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}
