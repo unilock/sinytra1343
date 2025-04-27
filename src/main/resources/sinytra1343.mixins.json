@@ -3,7 +3,8 @@
   "package": "cc.unilock.sinytra1343.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "LivingEntityMixin"
+    "AttributeSupplierAccessor",
+    "LazyEntityAttributesMixin"
   ],
   "client": [],
   "injectors": {
