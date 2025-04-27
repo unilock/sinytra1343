@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.injection.At;
 public class LivingEntityMixin {
 	@ModifyReturnValue(method = "getAttributeValue", at = @At("RETURN"))
 	private double getAttributeValue(double original, Holder<Attribute> attribute) {
-		if (original == 0.0D) {
+		// TODO: this prevents all items that modify these attributes from having any effect
+		if (original < 0.1D) {
 			if (attribute.is(NeoForgeMod.SWIM_SPEED::is)) {
 				return 1.0D;
 			}
@@ -21,6 +22,7 @@ public class LivingEntityMixin {
 				return 64.0D;
 			}
 			if (attribute.is(NeoForgeMod.CREATIVE_FLIGHT::is)) {
+				// TODO: this breaks "angel rings"
 				if (((LivingEntity) (Object) this) instanceof Player player && player.isCreative()) {
 					return 1.0D;
 				}
