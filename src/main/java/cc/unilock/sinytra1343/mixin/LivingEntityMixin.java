@@ -11,21 +11,25 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
-	@ModifyReturnValue(method = "getAttributeValue", at = @At("RETURN"))
-	private double getAttributeValue(double original, Holder<Attribute> attribute) {
-		if (original == 0.0D) {
-			if (attribute.is(NeoForgeMod.SWIM_SPEED::is)) {
-				return 1.0D;
-			}
-			if (attribute.is(NeoForgeMod.NAMETAG_DISTANCE::is)) {
-				return 64.0D;
-			}
-			if (attribute.is(NeoForgeMod.CREATIVE_FLIGHT::is)) {
-				if (((LivingEntity) (Object) this) instanceof Player player && player.isCreative()) {
-					return 1.0D;
-				}
-			}
-		}
-		return original;
-	}
+    @ModifyReturnValue(method = "getAttributeValue", at = @At("RETURN"))
+    private double getAttributeValue(double original, Holder<Attribute> attribute) {
+        if (attribute.is(NeoForgeMod.SWIM_SPEED::is)) {
+            if (original <= 0.1D) {
+                return 1.0D;
+            }
+        }
+        if (attribute.is(NeoForgeMod.NAMETAG_DISTANCE::is)) {
+            if (original <= 0.1D) {
+                return 64.0D;
+            }
+        }
+        if (attribute.is(NeoForgeMod.CREATIVE_FLIGHT::is)) {
+            if (((LivingEntity) (Object) this) instanceof Player player && player.isCreative()) {
+                if (original <= 0.1D) {
+                    return 1.0D;
+                }
+            }
+        }
+        return original;
+    }
 }
